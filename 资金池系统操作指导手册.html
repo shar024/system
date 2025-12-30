@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资金池管理系统操作指导手册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #409eff;
+            font-size: 32px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #409eff;
+        }
+
+        h2 {
+            color: #303133;
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 4px solid #409eff;
+        }
+
+        h3 {
+            color: #606266;
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #909399;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .toc {
+            background: #f5f7fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            border: none;
+            padding-left: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .toc a {
+            color: #409eff;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid #e4e7ed;
+        }
+
+        .toc a:hover {
+            color: #66b1ff;
+            padding-left: 10px;
+            transition: all 0.3s;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #409eff;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ebeef5;
+        }
+
+        tr:hover {
+            background: #f5f7fa;
+        }
+
+        .screenshot {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            border: 2px solid #dcdfe6;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: block;
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            min-height: 400px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ed 100%);
+            border: 2px dashed #c0c4cc;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #909399;
+            font-size: 16px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .screenshot-placeholder::before {
+            content: '📷 请在此处插入截图: ' attr(data-title);
+            text-align: center;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .warning {
+            background: #fef0f0;
+            border-left: 4px solid #f56c6c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning::before {
+            content: '⚠️ ';
+            font-weight: bold;
+            color: #f56c6c;
+        }
+
+        .info {
+            background: #ecf5ff;
+            border-left: 4px solid #409eff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .info::before {
+            content: '📌 ';
+            font-weight: bold;
+            color: #409eff;
+        }
+
+        .step {
+            background: #f0f9ff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border-left: 4px solid #409eff;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #409eff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .button-demo {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: #409eff;
+            color: white;
+        }
+
+        .btn-success {
+            background: #67c23a;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #e6a23c;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #909399;
+            color: white;
+        }
+
+        code {
+            background: #f5f7fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e6a23c;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #409eff;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(64,158,255,0.4);
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        .back-to-top:hover {
+            background: #66b1ff;
+            transform: translateY(-5px);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: #f0f9ff;
+            color: #67c23a;
+        }
+
+        .badge-warning {
+            background: #fdf6ec;
+            color: #e6a23c;
+        }
+
+        .badge-danger {
+            background: #fef0f0;
+            color: #f56c6c;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .collapsible::before {
+            content: '▼ ';
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .collapsible.collapsed::before {
+            content: '▶ ';
+        }
+
+        .collapsible-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .collapsible-content.collapsed {
+            max-height: 0;
+        }
+
+        @media print {
+            .back-to-top {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>资金池管理系统操作指导手册</h1>
+
+        <div class="toc">
+            <h2>目录</h2>
+            <ul>
+                <li><a href="#overview">1. 系统概述</a></li>
+                <li><a href="#navigation">2. 登录与导航</a></li>
+                <li><a href="#advance-page">3. 项目垫资页面</a></li>
+                <li><a href="#pool-page">4. 资金池页面</a></li>
+                <li><a href="#audit-page">5. 项目审计页面</a></li>
+                <li><a href="#workflows">6. 常用操作流程</a></li>
+                <li><a href="#notes">7. 注意事项</a></li>
+                <li><a href="#faq">8. 常见问题解答</a></li>
+            </ul>
+        </div>
+
+        <!-- 1. 系统概述 -->
+        <section id="overview" class="section">
+            <h2>1. 系统概述</h2>
+            
+            <h3>1.1 系统简介</h3>
+            <p>资金池管理系统用于管理项目垫资、还款、空投收益等相关财务数据。系统包含三个主要模块：</p>
+            <ul>
+                <li><strong>项目垫资</strong>：管理项目的垫资申请、还款申请、空投收益申请</li>
+                <li><strong>资金池</strong>：查看所有项目的资金池统计信息</li>
+                <li><strong>项目审计</strong>：对项目进行数据审计</li>
+            </ul>
+
+            <h3>1.2 核心概念</h3>
+            <ul>
+                <li><strong>主项目</strong>：多个子项目的集合，空投收益以主项目为维度计算</li>
+                <li><strong>子项目</strong>：具体执行的项目单元</li>
+                <li><strong>项目状态</strong>：进行中、待审计、已完结、已取消</li>
+                <li><strong>稳定币</strong>：USDT、USDC等价格稳定的数字货币</li>
+                <li><strong>非稳定币</strong>：ETH、BNB、BTC、SOL等价格波动的数字货币</li>
+                <li><strong>等效APY</strong>：等效年化收益率，用于评估项目的年化投资回报率，计算公式：(主项目总净利润 ÷ 主项目总加权平均占用) × (365 ÷ 主项目总天数) × 100%。<strong>按主项目维度计算，同一主项目下所有子项目显示相同的APY值。</strong></li>
+            </ul>
+        </section>
+
+        <!-- 2. 登录与导航 -->
+        <section id="navigation" class="section">
+            <h2>2. 登录与导航</h2>
+            
+            <h3>2.1 系统入口</h3>
+            <p>打开系统页面后，您将看到左侧导航栏和主内容区。</p>
+            
+            <img src="screenshots/1.png" alt="系统主界面 - 左侧导航栏" class="screenshot">
+
+            <h3>2.2 左侧导航栏</h3>
+            <p>左侧导航栏包含以下菜单项：</p>
+            <ul>
+                <li>点击 <strong>"项目垫资"</strong> 可以查看和管理所有项目垫资、还款、空投申请记录</li>
+                <li>点击 <strong>"资金池"</strong> 可以查看所有项目的资金池统计信息</li>
+                <li>点击 <strong>"项目审计"</strong> 可以对项目进行数据审计</li>
+            </ul>
+
+            <div class="info">
+                <strong>导航说明：</strong>点击侧边栏中的"对账管理"下的各个子菜单项，可以快速切换不同的功能页面。
+            </div>
+        </section>
+
+        <!-- 3. 项目垫资页面 -->
+        <section id="advance-page" class="section">
+            <h2>3. 项目垫资页面</h2>
+            
+            <h3>3.1 页面位置</h3>
+            <p><strong>路径</strong>：左侧导航栏 → 对账管理 → 项目垫资</p>
+
+            <img src="screenshots/2.png" alt="项目垫资页面 - 主界面" class="screenshot">
+
+            <h3>3.2 页面布局</h3>
+            
+            <h4>3.2.1 操作按钮区域</h4>
+            <p>页面右上角有三个主要操作按钮：</p>
+            <ul>
+                <li><span class="button-demo btn-primary">创建新项目</span> - 创建新的主项目和子项目</li>
+                <li><span class="button-demo btn-success">申请项目垫资</span> - 申请项目垫资</li>
+                <li><span class="button-demo btn-warning">申请项目还款</span> - 申请项目还款或空投收益</li>
+            </ul>
+
+            <h4>3.2.2 创建新项目</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>点击"创建新项目"按钮</strong>
+            </div>
+
+            <img src="screenshots/3.png" alt="创建新项目 - 模态框" class="screenshot">
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>填写项目信息</strong>
+                <ul>
+                    <li><span class="highlight">主项目名称 *</span>：例如 Opinion、Aster一期</li>
+                    <li><span class="highlight">子项目名称 *</span>：例如 Opinion-wave圣诞节活动</li>
+                    <li><span class="highlight">项目负责人 *</span>：从下拉列表中选择</li>
+                    <li><strong>备注</strong>：选填</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>点击"确认创建"按钮</strong>
+            </div>
+
+            <div class="warning">
+                <strong>注意事项：</strong>如果多个项目的空投会一起发放（无法拆分到具体子项目），这些项目应归属于同一个主项目。如果项目单独发放空投，需要单独创建主项目名称。
+            </div>
+
+            <h4>3.2.3 申请项目垫资</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>点击"申请项目垫资"按钮（绿色）</strong>
+            </div>
+
+            <img src="screenshots/4.png" alt="申请项目垫资 - 模态框" class="screenshot">
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>填写申请信息</strong>
+                <ul>
+                    <li><span class="highlight">所属主项目 *</span>：从下拉列表中选择</li>
+                    <li><span class="highlight">所属子项目 *</span>：选择主项目后会自动更新选项</li>
+                    <li><span class="highlight">所需链 *</span>：BSC、ETH、Polygon等</li>
+                    <li><span class="highlight">所需币种 *</span>：USDT、ETH、BNB等</li>
+                    <li><span class="highlight">所需金额 *</span>：输入垫资金额</li>
+                    <li><strong>申请事项</strong>：填写申请事项描述</li>
+                    <li><strong>备注</strong>：选填</li>
+                </ul>
+            </div>
+
+            <img src="screenshots/5.png" alt="申请项目垫资 - 选择非稳定币时的提醒" class="screenshot">
+
+            <div class="warning">
+                <strong>重要提示：</strong>如果申请非稳定币垫资（如ETH、BNB），系统会显示警告提醒。后续还款时必须归还相同数量的非稳定币。例如：申请了10 ETH，还款时也必须还款10 ETH。
+            </div>
+
+            <h4>3.2.4 申请项目还款</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>点击"申请项目还款"按钮（橙色）</strong>
+            </div>
+
+            <img src="screenshots/6.png" alt="申请项目还款 - 模态框" class="screenshot">
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>选择归集类型</strong>
+                <ul>
+                    <li><strong>项目还款</strong>：归还项目垫资</li>
+                    <li><strong>空投归集</strong>：申请空投收益</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>填写还款信息</strong>
+            </div>
+
+            <img src="screenshots/7.png" alt="申请空投收益 - 非稳定币债务警告" class="screenshot">
+
+            <div class="warning">
+                <strong>系统验证逻辑：</strong>如果选择"空投归集"类型，且该项目有未归还的非稳定币债务，系统会弹出红色警告框，阻止申请。必须先还清所有非稳定币债务，才能申请空投收益。
+            </div>
+
+            <h4>3.2.5 审核申请</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>在列表中找到状态为"待审核"的记录</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>点击该记录右侧"操作"列中的"审核"按钮</strong>
+            </div>
+
+            <img src="screenshots/8.png" alt="审核申请 - 模态框" class="screenshot">
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>填写审核信息</strong>
+                <ul>
+                    <li><span class="highlight">审核结果 *</span>：通过 / 拒绝 / 取消</li>
+                    <li><strong>审核备注</strong>：选填</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>点击"确认审核"按钮</strong>
+            </div>
+
+            <div class="info">
+                <strong>说明：</strong>审核通过后，该记录的金额会同步到资金池统计中，资金池页面会自动更新。
+            </div>
+        </section>
+
+        <!-- 4. 资金池页面 -->
+        <section id="pool-page" class="section">
+            <h2>4. 资金池页面</h2>
+            
+            <h3>4.1 页面位置</h3>
+            <p><strong>路径</strong>：左侧导航栏 → 对账管理 → 资金池</p>
+
+            <img src="screenshots/9.png" alt="资金池页面 - 主界面" class="screenshot">
+
+            <h3>4.2 页面功能</h3>
+            <p>资金池页面显示所有项目的资金池统计信息，包括：</p>
+            <ul>
+                <li>项目编号、主项目、子项目</li>
+                <li>项目成本、空投收益、净利润</li>
+                <li>加权平均占用（主项目维度）、项目天数（主项目维度）、等效APY（主项目维度）</li>
+                <li>项目状态、项目负责人</li>
+                <li>是否垫资非稳定币、非稳定币是否归还</li>
+            </ul>
+
+            <h3>4.3 查看项目详情</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>点击项目右侧"操作"列中的"垫资详情"按钮</strong>
+            </div>
+
+            <img src="screenshots/10.png" alt="项目详情页面 - 完整视图" class="screenshot">
+
+            <p>项目详情页面包含以下信息：</p>
+            
+            <h4>4.3.1 完整财务指标</h4>
+            <p>项目详情页面显示完整的财务指标，包括：</p>
+            <ul>
+                <li><strong>项目成本</strong>：稳定币垫资 - 稳定币还款</li>
+                <li><strong>空投收益</strong>：所有空投收益的总和（USD）</li>
+                <li><strong>净利润</strong>：空投收益 - 项目成本（正数用绿色显示，负数用红色显示）</li>
+                <li><strong>加权平均占用</strong>：主项目总加权平均占用资金（USD，按主项目维度计算）</li>
+                <li><strong>项目天数</strong>：主项目总天数（从主项目下最早垫资时间开始计算）</li>
+                <li><strong>等效APY</strong>：等效年化收益率（百分比，按主项目维度计算），计算公式详见第5.3节</li>
+            </ul>
+
+            <div class="info">
+                <strong>等效APY说明：</strong>等效APY用于评估项目的年化收益率。计算公式为：(主项目总净利润 ÷ 主项目总加权平均占用) × (365 ÷ 主项目总天数) × 100%。<strong>按主项目维度计算，同一主项目下所有子项目显示相同的APY值。</strong>正数显示为绿色，负数显示为红色。
+            </div>
+            <ul>
+                <li><strong>项目基本信息</strong>：项目编号、主项目、子项目、负责人、状态、时间等</li>
+                <li><strong>财务指标</strong>：项目成本、空投收益、净利润、加权平均占用、等效APY</li>
+                <li><strong>资金统计</strong>：稳定币垫资/还款、非稳定币垫资/还款/债务</li>
+                <li><strong>币种明细</strong>：每个币种的详细统计表格</li>
+                <li><strong>操作流水</strong>：该项目所有申请记录的详细列表</li>
+            </ul>
+
+            <h3>4.4 查看非稳定币详情</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>找到"是否垫资非稳定币"为"是"的项目</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>点击"非稳定币"按钮</strong>
+            </div>
+
+            <img src="screenshots/11.png" alt="非稳定币详情 - 模态框" class="screenshot">
+
+            <p>模态框显示：</p>
+            <ul>
+                <li>非稳定币垫资情况：格式为 <code>ETH: 0.5</code>（仅显示数量）</li>
+                <li>非稳定币还款情况：格式为 <code>ETH: 0.3</code></li>
+                <li>非稳定币债务情况：格式为 <code>ETH: 欠款 0.2 ETH</code>（黄色背景高亮显示）</li>
+            </ul>
+
+            <h3>4.5 变更项目状态</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>点击"变更状态"按钮</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>在模态框中选择新状态</strong>
+            </div>
+
+            <img src="screenshots/12.png" alt="项目状态变更 - 模态框" class="screenshot">
+
+            <div class="warning">
+                <strong>重要限制：</strong>如果选择"已完结"，系统会检查项目是否有审计记录。未审计的项目不能将状态修改为"已完结"，必须先完成项目审计。
+            </div>
+        </section>
+
+        <!-- 5. 项目审计页面 -->
+        <section id="audit-page" class="section">
+            <h2>5. 项目审计页面</h2>
+            
+            <h3>5.1 页面位置</h3>
+            <p><strong>路径</strong>：左侧导航栏 → 对账管理 → 项目审计</p>
+
+            <img src="screenshots/13.png" alt="项目审计页面 - 主界面" class="screenshot">
+
+            <h3>5.2 项目审计列表</h3>
+            <p>项目审计页面显示所有项目的列表，包含以下详细信息：</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>列名</th>
+                        <th>说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>项目编号</strong></td>
+                        <td>项目的唯一编号，格式：P+日期+序号</td>
+                    </tr>
+                    <tr>
+                        <td><strong>主项目</strong></td>
+                        <td>主项目名称</td>
+                    </tr>
+                    <tr>
+                        <td><strong>所属子项目</strong></td>
+                        <td>子项目名称</td>
+                    </tr>
+                    <tr>
+                        <td><strong>项目成本(u)</strong></td>
+                        <td>项目成本（USD），计算公式：稳定币垫资 - 稳定币还款</td>
+                    </tr>
+                    <tr>
+                        <td><strong>空投收益(u)</strong></td>
+                        <td>空投收益（USD），所有空投归集的总和</td>
+                    </tr>
+                    <tr>
+                        <td><strong>净利润(u)</strong></td>
+                        <td>净利润（USD），计算公式：空投收益 - 项目成本。注意：等效APY按主项目维度计算，使用主项目总净利润。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>项目状态</strong></td>
+                        <td>当前项目状态：进行中、待审计、已完结、已取消</td>
+                    </tr>
+                    <tr>
+                        <td><strong>项目负责人</strong></td>
+                        <td>项目负责人姓名</td>
+                    </tr>
+                    <tr>
+                        <td><strong>最新审计结果</strong></td>
+                        <td>最新一次审计的结果：通过、不通过、待补充、未审计</td>
+                    </tr>
+                    <tr>
+                        <td><strong>审计次数</strong></td>
+                        <td>该项目已进行的审计总次数</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info">
+                <strong>说明：</strong>项目审计列表页面展示了每个项目的完整财务数据，包括项目成本、空投收益、净利润等关键指标，方便审计人员快速了解项目情况。
+            </div>
+
+            <h3>5.3 等效APY计算公式说明</h3>
+            <p><strong>等效APY（Equivalent Annual Percentage Yield）</strong>用于评估项目的年化收益率，计算公式如下：</p>
+            
+            <div style="background: #f5f7fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #409eff;">
+                <h4 style="margin-top: 0; color: #409eff;">等效APY计算公式</h4>
+                <div style="font-size: 18px; font-weight: bold; text-align: center; margin: 15px 0; color: #303133;">
+                    等效APY = (主项目总净利润 ÷ 主项目总加权平均占用) × (365 ÷ 主项目总天数) × 100%
+                </div>
+                
+                <div style="background: #fff3cd; padding: 12px; border-radius: 4px; margin: 15px 0; border-left: 4px solid #ffc107;">
+                    <strong>重要说明：</strong>等效APY是按<strong>主项目维度</strong>计算的，同一个主项目下的所有子项目显示相同的等效APY值。
+                </div>
+                
+                <h4>公式组成部分：</h4>
+                <ul>
+                    <li><strong>主项目总净利润（Main Project Total Net Profit）</strong>
+                        <ul>
+                            <li>计算公式：<code>主项目总净利润 = 主项目总空投收益 - 主项目总成本</code></li>
+                            <li>主项目总成本 = 主项目总稳定币垫资 - 主项目总稳定币还款</li>
+                            <li>单位：USD</li>
+                            <li>说明：汇总主项目下所有子项目的数据计算。净利润为正数表示盈利，负数表示亏损（显示为红色）</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>主项目总加权平均占用（Main Project Total Weighted Average Occupancy）</strong>
+                        <ul>
+                            <li>计算公式：<code>主项目总加权平均占用 = sum(主项目每日资金余额 × 持续天数) / 主项目总天数</code></li>
+                            <li>计算方式：汇总主项目下所有子项目的垫资和还款记录，按时间排序后计算每日资金余额的加权和</li>
+                            <li>单位：USD</li>
+                            <li>说明：表示主项目占用的平均资金量，考虑了资金余额随时间的变化</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>主项目总天数（Main Project Total Days）</strong>
+                        <ul>
+                            <li>计算方式：从主项目下最早一笔垫资申请时间到当前时间的天数</li>
+                            <li>说明：即使子项目在不同时间开始，主项目总天数也从最早的子项目垫资时间开始计算</li>
+                            <li>单位：天</li>
+                            <li>说明：主项目持续的时间长度</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>365</strong>
+                        <ul>
+                            <li>一年中的天数，用于将项目收益率转换为年化收益率</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <h4>等效APY计算示例：</h4>
+            
+            <div class="info" style="margin: 20px 0;">
+                <strong>示例说明：</strong>以下示例假设主项目下只有一个子项目，计算结果等同于单项目计算，但系统仍按主项目维度计算以确保一致性。
+            </div>
+            
+            <div class="step">
+                <p><strong>示例1：盈利项目（主项目下单一子项目）</strong></p>
+                <ul>
+                    <li>主项目总稳定币垫资：$10,000</li>
+                    <li>主项目总稳定币还款：$8,000</li>
+                    <li>主项目总成本：$10,000 - $8,000 = $2,000</li>
+                    <li>主项目总空投收益：$5,000</li>
+                    <li>主项目总净利润：$5,000 - $2,000 = $3,000</li>
+                    <li>主项目总加权平均占用：$10,000（简化计算）</li>
+                    <li>主项目总天数：180天</li>
+                </ul>
+                <p><strong>计算过程：</strong></p>
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 10px 0;">
+                    <code>
+                        等效APY = (主项目总净利润 ÷ 主项目总加权平均占用) × (365 ÷ 主项目总天数) × 100%<br>
+                        等效APY = ($3,000 ÷ $10,000) × (365 ÷ 180) × 100%<br>
+                        = 0.3 × 2.0278 × 100%<br>
+                        = 60.83%
+                    </code>
+                </div>
+                <p><strong>结果：</strong>等效APY = <span style="color: #67c23a; font-weight: bold;">60.83%</span>（绿色显示，表示盈利）</p>
+            </div>
+
+            <div class="step">
+                <p><strong>示例2：亏损项目（主项目下单一子项目）</strong></p>
+                <ul>
+                    <li>主项目总稳定币垫资：$10,000</li>
+                    <li>主项目总稳定币还款：$8,000</li>
+                    <li>主项目总成本：$10,000 - $8,000 = $2,000</li>
+                    <li>主项目总空投收益：$1,000</li>
+                    <li>主项目总净利润：$1,000 - $2,000 = -$1,000</li>
+                    <li>主项目总加权平均占用：$10,000（简化计算）</li>
+                    <li>主项目总天数：90天</li>
+                </ul>
+                <p><strong>计算过程：</strong></p>
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 10px 0;">
+                    <code>
+                        等效APY = (主项目总净利润 ÷ 主项目总加权平均占用) × (365 ÷ 主项目总天数) × 100%<br>
+                        等效APY = (-$1,000 ÷ $10,000) × (365 ÷ 90) × 100%<br>
+                        = -0.1 × 4.0556 × 100%<br>
+                        = -40.56%
+                    </code>
+                </div>
+                <p><strong>结果：</strong>等效APY = <span style="color: #f56c6c; font-weight: bold;">-40.56%</span>（红色显示，表示亏损）</p>
+            </div>
+
+            <div class="warning">
+                <strong>注意事项：</strong>
+                <ul>
+                    <li><strong>按主项目维度计算：</strong>等效APY是按主项目汇总计算的，同一主项目下的所有子项目显示相同的APY值</li>
+                    <li>当主项目总加权平均占用为0或主项目总天数为0时，等效APY显示为0%</li>
+                    <li>等效APY为正数时显示为绿色，负数时显示为红色</li>
+                    <li>等效APY用于评估项目的年化收益率，帮助比较不同项目周期的投资回报率</li>
+                    <li>空投收益以主项目为维度发放，因此等效APY也按主项目维度计算，更符合业务逻辑</li>
+                </ul>
+            </div>
+
+            <h3>5.4 进行项目审计</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>点击项目右侧"操作"列中的"审计"按钮</strong>
+            </div>
+
+            <img src="screenshots/14.png" alt="项目审计 - 模态框完整视图" class="screenshot">
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>查看项目申请记录和资金统计</strong>
+                <p>模态框会自动显示：</p>
+                <ul>
+                    <li><strong>项目申请记录表格</strong>：该主项目下所有子项目的申请记录</li>
+                    <li><strong>资金统计表格（按币种）</strong>：每个币种的垫资、还款、空投收益统计</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>填写审计信息</strong>
+                <ul>
+                    <li><span class="highlight">项目垫资实际到账 *</span>：已全部到账 / 部分到账 / 未到账</li>
+                    <li><span class="highlight">项目还款实际到账 *</span>：已全部到账 / 部分到账 / 未到账</li>
+                    <li><span class="highlight">空投收益实际到账 *</span>：已全部到账 / 部分到账 / 未到账</li>
+                    <li><span class="highlight">所属交易所余额 *</span>：已清空 / 未清空 / 不适用</li>
+                    <li><span class="highlight">链上钱包余额 *</span>：已清空 / 未清空 / 不适用</li>
+                    <li><span class="highlight">审计结果 *</span>：通过 / 不通过 / 待补充材料</li>
+                    <li><strong>审计备注</strong>：选填，详细说明</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>点击"提交审计"按钮</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>查看项目申请记录和资金统计</strong>
+                <p>模态框会自动显示：</p>
+                <ul>
+                    <li><strong>项目申请记录表格</strong>：该主项目下所有子项目的申请记录</li>
+                    <li><strong>资金统计表格（按币种）</strong>：每个币种的垫资、还款、空投收益统计</li>
+                </ul>
+                <p>这些数据可以帮助审计人员全面了解项目的资金流动情况，包括：</p>
+                <ul>
+                    <li>所有申请记录的类型、币种、金额、状态</li>
+                    <li>每个币种的垫资金额、还款金额、空投收益</li>
+                    <li>各币种的差额（垫资 - 还款）</li>
+                </ul>
+            </div>
+
+            <div class="info">
+                <strong>审计通过后：</strong>系统会提示是否立即将项目状态修改为"已完结"。您可以选择确认修改，或稍后手动修改状态。
+            </div>
+
+            <h3>5.5 查看项目详细数据</h3>
+            <p>在项目审计列表中，每个项目都显示完整的财务数据，包括：</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>数据项</th>
+                        <th>说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>项目成本(u)</strong></td>
+                        <td>稳定币垫资减去稳定币还款的金额（USD），如果为正数显示为红色</td>
+                    </tr>
+                    <tr>
+                        <td><strong>空投收益(u)</strong></td>
+                        <td>所有空投归集记录的总和（USD）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>净利润(u)</strong></td>
+                        <td>空投收益减去项目成本（USD），正数显示为绿色，负数显示为红色</td>
+                    </tr>
+                    <tr>
+                        <td><strong>项目状态</strong></td>
+                        <td>当前项目的状态标识（进行中、待审计、已完结、已取消）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>项目负责人</strong></td>
+                        <td>项目负责人姓名</td>
+                    </tr>
+                    <tr>
+                        <td><strong>最新审计结果</strong></td>
+                        <td>最新一次审计的结果（通过、不通过、待补充、未审计）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>审计次数</strong></td>
+                        <td>该项目已进行的审计总次数</td>
+                    </tr>
+                    <tr>
+                        <td><strong>等效APY</strong></td>
+                        <td><strong>等效年化收益率</strong>（按主项目维度计算），需要在项目详情页面查看（点击"详情"按钮）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>加权平均占用</strong></td>
+                        <td>主项目总加权平均占用资金（按主项目维度计算），需要在项目详情页面查看（点击"详情"按钮）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>项目天数</strong></td>
+                        <td>主项目总天数（从主项目下最早垫资时间开始计算），需要在项目详情页面查看（点击"详情"按钮）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info">
+                <strong>数据查看建议：</strong>
+                <ul>
+                    <li>在进行审计前，可以先在列表中查看项目的净利润和项目成本，快速了解项目盈亏情况</li>
+                    <li>如果净利润为负数（显示为红色），说明项目处于亏损状态，审计时需要特别关注</li>
+                    <li><strong>查看等效APY：</strong>点击"详情"按钮可以查看项目的完整财务指标，包括等效APY、加权平均占用、项目天数等详细数据</li>
+                    <li>等效APY用于评估项目的年化收益率，计算公式请参考上面的第5.3节说明</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>重要提示：</strong>虽然项目审计列表页面不直接显示等效APY，但系统在后台已经计算了等效APY。要查看等效APY等完整的财务指标（包括加权平均占用、项目天数），请点击项目右侧"操作"列中的"详情"按钮，进入项目详情页面查看。
+            </div>
+        </section>
+
+        <!-- 6. 常用操作流程 -->
+        <section id="workflows" class="section">
+            <h2>6. 常用操作流程</h2>
+            
+            <h3>6.1 创建新项目并申请垫资</h3>
+            <ol>
+                <li>进入"项目垫资"页面</li>
+                <li>点击"创建新项目"按钮，填写主项目名称、子项目名称、项目负责人</li>
+                <li>点击"申请项目垫资"按钮，选择项目，填写币种、金额、链等信息</li>
+                <li>提交申请后，等待审核</li>
+                <li>审核通过后，可以在"资金池"页面查看项目统计信息</li>
+            </ol>
+
+            <h3>6.2 项目还款和空投收益</h3>
+            <ol>
+                <li>进入"项目垫资"页面</li>
+                <li>点击"申请项目还款"按钮</li>
+                <li>选择类型为"项目还款"，填写还款信息，提交申请</li>
+                <li>等待审核通过</li>
+                <li>如果项目获得空投收益，点击"申请项目还款"按钮，选择类型为"空投归集"</li>
+                <li><strong>注意：</strong>申请空投收益前，必须确保所有非稳定币债务已还清</li>
+                <li>提交空投收益申请，等待审核</li>
+            </ol>
+
+            <h3>6.3 非稳定币垫资和还款</h3>
+            <ol>
+                <li>申请非稳定币垫资（如ETH、BNB）</li>
+                <li>系统会显示非稳定币垫资提醒</li>
+                <li>后续还款时，必须选择相同的币种，输入相同或更多的数量</li>
+                <li>如果还款数量不足，可以进行多次还款，直到还清</li>
+                <li>在"资金池"页面可以点击"非稳定币"按钮查看详细的垫资、还款、债务情况</li>
+            </ol>
+
+            <h3>6.4 项目审计和状态变更</h3>
+            <ol>
+                <li>进入"项目审计"页面</li>
+                <li>点击项目的"审计"按钮</li>
+                <li>查看项目申请记录和资金统计</li>
+                <li>核实实际到账情况，检查交易所和钱包余额</li>
+                <li>填写所有必填字段，选择审计结果，提交审计</li>
+                <li>如果审计通过，系统会提示是否修改状态为"已完结"</li>
+                <li>或者手动点击"变更状态"按钮，将状态修改为"已完结"</li>
+            </ol>
+        </section>
+
+        <!-- 7. 注意事项 -->
+        <section id="notes" class="section">
+            <h2>7. 注意事项</h2>
+            
+            <h3>7.1 通用注意事项</h3>
+            <ul>
+                <li>系统数据在各页面之间自动同步</li>
+                <li>标记有 <span class="highlight">*</span> 号的字段为必填项</li>
+                <li>只有状态为"待审核"的记录才能进行审核操作</li>
+                <li>未审计的项目不能将状态修改为"已完结"</li>
+            </ul>
+
+            <h3>7.2 项目垫资注意事项</h3>
+            <ul>
+                <li>稳定币（USDT、USDC）垫资可以用任何稳定币还款</li>
+                <li>非稳定币（ETH、BNB等）垫资必须用相同币种还款</li>
+                <li>非稳定币垫资会影响后续空投收益申请</li>
+            </ul>
+
+            <h3>7.3 非稳定币注意事项</h3>
+            <ul>
+                <li>非稳定币垫资必须用相同币种归还</li>
+                <li>可以进行多次还款，直到还清</li>
+                <li>如果项目有未归还的非稳定币债务，不能申请空投收益</li>
+            </ul>
+
+            <h3>7.4 项目审计注意事项</h3>
+            <ul>
+                <li>项目还款和空投收益都发放后，项目状态应变为"待审计"</li>
+                <li>审计时需要核实实际到账情况，检查交易所和钱包余额</li>
+                <li>只有审计通过的项目才能将状态修改为"已完结"</li>
+            </ul>
+        </section>
+
+        <!-- 8. 常见问题解答 -->
+        <section id="faq" class="section">
+            <h2>8. 常见问题解答</h2>
+            
+            <h3>Q1: 如何创建新项目？</h3>
+            <p><strong>A:</strong> 进入"项目垫资"页面，点击右上角的"创建新项目"按钮，填写主项目名称、子项目名称、项目负责人，点击"确认创建"即可。</p>
+
+            <h3>Q2: 申请垫资时，如何选择主项目和子项目？</h3>
+            <p><strong>A:</strong> 先选择主项目，下拉列表会显示所有已创建的主项目。选择主项目后，子项目下拉列表会自动更新，只显示该主项目下的子项目。</p>
+
+            <h3>Q3: 非稳定币垫资后，如何还款？</h3>
+            <p><strong>A:</strong> 点击"申请项目还款"按钮，选择类型为"项目还款"，选择相同的主项目和子项目，<strong>选择相同的币种</strong>（如垫资是ETH，还款也要选ETH），输入还款数量（可以等于或大于垫资数量）。如果还款数量不足，可以先还一部分，然后再申请一次还款。</p>
+
+            <h3>Q4: 为什么不能申请空投收益？</h3>
+            <p><strong>A:</strong> 如果系统提示"无法申请空投收益"，可能是因为该项目有未归还的非稳定币债务。必须先还清所有非稳定币债务，才能申请空投收益。请查看资金池页面的"非稳定币"按钮，查看具体的债务明细。</p>
+
+            <h3>Q5: 如何查看项目的详细财务信息？</h3>
+            <p><strong>A:</strong> 进入"资金池"页面，找到要查看的项目，点击"垫资详情"按钮，可以看到项目的资金统计、币种明细、财务指标、操作流水等信息。</p>
+
+            <h3>Q6: 项目审计时需要查看哪些信息？</h3>
+            <p><strong>A:</strong> 点击"审计"按钮后，模态框会自动显示该主项目下所有子项目的申请记录表格，以及按币种统计的垫资、还款、空投收益明细。您需要根据这些信息，核实实际到账情况，检查交易所和钱包余额。</p>
+
+            <h3>Q7: 为什么不能将项目状态修改为"已完结"？</h3>
+            <p><strong>A:</strong> 系统要求项目必须先完成审计，才能将状态修改为"已完结"。请进入"项目审计"页面，点击"审计"按钮，完成项目审计。审计通过后，才能将状态修改为"已完结"。</p>
+
+            <h3>Q8: 审核操作可以撤销吗？</h3>
+            <p><strong>A:</strong> 审核操作一旦提交，无法撤销。请谨慎操作，确认审核结果后再提交。</p>
+        </section>
+
+        <!-- 技术支持 -->
+        <section class="section">
+            <h2>技术支持</h2>
+            <p>如遇到问题，请联系系统管理员或技术支持团队。</p>
+            <hr style="margin: 30px 0; border: none; border-top: 1px solid #ebeef5;">
+            <p style="text-align: center; color: #909399; font-size: 14px;">
+                <strong>文档版本</strong>: v1.0<br>
+                <strong>最后更新</strong>: 2024年12月<br>
+                <strong>适用系统</strong>: 资金池管理系统
+            </p>
+        </section>
+    </div>
+
+    <a href="#" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">↑</a>
+
+    <script>
+        // 图片占位符点击提示
+        document.querySelectorAll('.screenshot-placeholder').forEach(function(placeholder) {
+            placeholder.addEventListener('click', function() {
+                const title = this.getAttribute('data-title');
+                alert('请在此处插入截图：' + title + '\n\n提示：您可以将截图文件拖放到此处，或使用图片编辑工具将截图插入到HTML文件中。\n\n在HTML中，将此div替换为：\n<img src="图片路径/文件名.png" alt="' + title + '" class="screenshot">');
+            });
+            placeholder.style.cursor = 'pointer';
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 返回顶部按钮显示/隐藏
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
+
