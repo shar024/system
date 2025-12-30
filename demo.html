@@ -1777,6 +1777,10 @@
                 sidebarItems[10].style.background = '#409eff';
                 sidebarItems[9].style.background = ''; // 清除项目垫资的高亮
                 sidebarItems[11].style.background = ''; // 清除待审计的高亮
+                // 切换到资金池页面时，更新数据
+                setTimeout(function() {
+                    updateFundsPoolFromAdvanceRecords();
+                }, 100);
             } else if (pageId === 'auditPage') {
                 // 对账管理父项
                 sidebarItems[8].classList.add('active');
@@ -1784,6 +1788,10 @@
                 sidebarItems[11].style.background = '#409eff';
                 sidebarItems[9].style.background = ''; // 清除项目垫资的高亮
                 sidebarItems[10].style.background = ''; // 清除资金池的高亮
+                // 切换到项目审计页面时，更新数据
+                setTimeout(function() {
+                    refreshAuditPage();
+                }, 100);
             }
         }
 
@@ -3214,10 +3222,11 @@
             toggleRepaymentType();
             
             // 初始化资金池数据（从项目垫资数据同步）
-            updateFundsPoolFromAdvanceRecords();
-            
-            // 初始化项目审计页面
-            refreshAuditPage();
+            // 延迟执行确保DOM完全加载
+            setTimeout(function() {
+                updateFundsPoolFromAdvanceRecords();
+                refreshAuditPage();
+            }, 200);
         });
 
         // 加载并显示主项目下的所有申请记录和资金统计
